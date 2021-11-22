@@ -1,4 +1,4 @@
-using System.Reflection.Metadata.Ecma335;
+using System.Net.Mime;
 using ABU.CanvasSharp.Infrastructure.Abstractions;
 using Ardalis.GuardClauses;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +16,7 @@ public class CanvasController : ControllerBase
     }
     
     [HttpGet]
+    [Produces(MediaTypeNames.Application.Json)]
     public async Task<IActionResult> Get(CancellationToken ct)
     {
         var results = await _client.GetCoursesAsync(ct);
