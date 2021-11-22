@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace ABU.CanvasSharp.Controllers;
+namespace ABU.CanvasSharp.Web.Controllers;
 
 [ApiController]
 [Route("[controller]")]

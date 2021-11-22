@@ -1,4 +1,4 @@
-namespace ABU.CanvasSharp;
+namespace ABU.CanvasSharp.Web;
 
 public class WeatherForecast
 {
