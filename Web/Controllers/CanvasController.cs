@@ -1,5 +1,6 @@
 using System.Net.Mime;
 using System.Text;
+using ABU.CanvasSharp.Core.Models;
 using ABU.CanvasSharp.Infrastructure.Abstractions;
 using Ardalis.GuardClauses;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +22,6 @@ public class CanvasController : ControllerBase
     public async Task<IActionResult> Get(CancellationToken ct)
     {
         var results = await _client.GetCoursesAsync(ct);
-        return Content(results, MediaTypeNames.Application.Json, Encoding.UTF8);
+        return Ok(results);
     }
 }
