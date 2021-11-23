@@ -1,6 +1,8 @@
+using ABU.CanvasSharp.Core.Constants;
 using ABU.CanvasSharp.Infrastructure.Abstractions;
 using ABU.CanvasSharp.Infrastructure.Services;
 using RestSharp;
+using RestSharp.Authenticators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +13,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddTransient<IRestClient, RestClient>();
+builder.Services.AddTransient<IRestClient, RestClient>(sp => new RestClient()
+{
+    BaseUrl = new Uri(CanvasResource.BaseUrl),
+    Authenticator = new JwtAuthenticator(builder.Configuration["CanvasToken"])
+});
+
 builder.Services.AddTransient<ICanvasApiClient, CanvasApiClient>();
 
 var app = builder.Build();
