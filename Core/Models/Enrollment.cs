@@ -8,9 +8,9 @@ public record Enrollment
 
     [JsonProperty("role")] public string? Role { get; set; }
 
-    [JsonProperty("role_id")] public object? RoleId { get; set; }
+    [JsonProperty("role_id")] public long RoleId { get; set; }
 
-    [JsonProperty("user_id")] public object? UserId { get; set; }
+    [JsonProperty("user_id")] public long UserId { get; set; }
 
     [JsonProperty("enrollment_state")] public string? EnrollmentState { get; set; }
 

@@ -13,7 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddTransient<IRestClient, RestClient>(_ => new RestClient()
+builder.Services.AddTransient<IRestClient, RestClient>(_ => new RestClient
 {
     BaseUrl = new Uri(CanvasResource.BaseUrl),
     Authenticator = new JwtAuthenticator(builder.Configuration["CanvasToken"])
