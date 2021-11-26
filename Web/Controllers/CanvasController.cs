@@ -31,4 +31,12 @@ public class CanvasController : ControllerBase
         var results = await _client.GetScopesAsync(ct);
         return Content(results, MediaTypeNames.Application.Json, Encoding.UTF8);
     }
+
+    [HttpGet("{accountId:long}/notifications")]
+    [Produces(MediaTypeNames.Application.Json)]
+    public async Task<IActionResult> GetNotificationsAsync(long accountId, CancellationToken ct)
+    {
+        var results = await _client.GetNotificationsAsync(accountId, ct);
+        return Content(results, MediaTypeNames.Application.Json, Encoding.UTF8);
+    }
 }

@@ -33,7 +33,7 @@ public class CanvasApiClient : ICanvasApiClient
     public async Task<string> GetScopesAsync(CancellationToken ct = default)
     {
         var request = new RestRequest(
-            string.Format(CanvasResource.Scopes, "20000000000361"), DataFormat.Json
+            string.Format(CanvasResource.Scopes, "20000000000014"), DataFormat.Json
         ) as IRestRequest;
         
         var response = await _client.ExecuteGetAsync(request, ct);
@@ -42,5 +42,22 @@ public class CanvasApiClient : ICanvasApiClient
         if (!response.IsSuccessful) return string.Empty;
 
         return scopes;
+    }
+
+    public async Task<string> GetNotificationsAsync(long accountId, CancellationToken ct = default)
+    {
+        // TODO: add the include_past route param dynamically
+        var request = new RestRequest(
+            string.Format(CanvasResource.Notifications, $"{accountId}") + "?include_past=true", DataFormat.Json
+        ) as IRestRequest;
+
+        var response = await _client.ExecuteGetAsync(request, ct);
+
+        if (!response.IsSuccessful) 
+            return string.Empty;
+
+        var notifications = response.Content;
+
+        return notifications;
     }
 }
