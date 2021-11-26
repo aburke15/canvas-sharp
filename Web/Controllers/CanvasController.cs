@@ -32,11 +32,11 @@ public class CanvasController : ControllerBase
         return Content(results, MediaTypeNames.Application.Json, Encoding.UTF8);
     }
 
-    [HttpGet("{accountId:long}/notifications")]
+    [HttpGet("{accountId:long}/notifications{includePast:bool}")]
     [Produces(MediaTypeNames.Application.Json)]
-    public async Task<IActionResult> GetNotificationsAsync(long accountId, CancellationToken ct)
+    public async Task<IActionResult> GetNotificationsAsync(long accountId, [FromRoute] bool includePast, CancellationToken ct)
     {
-        var results = await _client.GetNotificationsAsync(accountId, ct);
+        var results = await _client.GetNotificationsAsync(accountId, includePast, ct);
         return Content(results, MediaTypeNames.Application.Json, Encoding.UTF8);
     }
 }
