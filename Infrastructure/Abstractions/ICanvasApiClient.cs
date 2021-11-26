@@ -5,4 +5,5 @@ namespace ABU.CanvasSharp.Infrastructure.Abstractions;
 public interface ICanvasApiClient
 {
     Task<IReadOnlyList<Course>> GetCoursesAsync(CancellationToken ct = default);
+    Task<string> GetScopesAsync(CancellationToken ct = default);
 }

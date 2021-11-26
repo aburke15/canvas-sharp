@@ -1,6 +1,5 @@
 using System.Net.Mime;
 using System.Text;
-using ABU.CanvasSharp.Core.Models;
 using ABU.CanvasSharp.Infrastructure.Abstractions;
 using Ardalis.GuardClauses;
 using Microsoft.AspNetCore.Mvc;
@@ -17,11 +16,19 @@ public class CanvasController : ControllerBase
         _client = Guard.Against.Null(client, nameof(client));
     }
     
-    [HttpGet]
+    [HttpGet("courses")]
     [Produces(MediaTypeNames.Application.Json)]
-    public async Task<IActionResult> Get(CancellationToken ct)
+    public async Task<IActionResult> GetCoursesAsync(CancellationToken ct)
     {
         var results = await _client.GetCoursesAsync(ct);
         return Ok(results);
+    }
+
+    [HttpGet("scopes")]
+    [Produces(MediaTypeNames.Application.Json)]
+    public async Task<IActionResult> GetScopesAsync(CancellationToken ct)
+    {
+        var results = await _client.GetScopesAsync(ct);
+        return Content(results, MediaTypeNames.Application.Json, Encoding.UTF8);
     }
 }

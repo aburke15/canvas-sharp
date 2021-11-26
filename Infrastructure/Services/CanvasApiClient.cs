@@ -29,4 +29,18 @@ public class CanvasApiClient : ICanvasApiClient
 
         return courses;
     }
+
+    public async Task<string> GetScopesAsync(CancellationToken ct = default)
+    {
+        var request = new RestRequest(
+            string.Format(CanvasResource.Scopes, "20000000000361"), DataFormat.Json
+        ) as IRestRequest;
+        
+        var response = await _client.ExecuteGetAsync(request, ct);
+        var scopes = response.Content;
+
+        if (!response.IsSuccessful) return string.Empty;
+
+        return scopes;
+    }
 }
