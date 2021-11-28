@@ -1,3 +1,4 @@
+using System.Web;
 using ABU.CanvasSharp.Core.Constants;
 using ABU.CanvasSharp.Core.Models;
 using ABU.CanvasSharp.Infrastructure.Abstractions;
@@ -62,5 +63,29 @@ public class CanvasApiClient : ICanvasApiClient
         var notifications = response.Content;
 
         return notifications;
+    }
+
+    public async Task CreateNotificationAsync(long accountId, CancellationToken ct = default)
+    {
+        var longUrl = string.Concat(_client.BaseUrl?.ToString(), string.Format(CanvasResource.Notifications, accountId));
+        var uriBuilder = new UriBuilder(longUrl);
+        var query = HttpUtility.ParseQueryString(uriBuilder.Query);
+
+        query["subject"] = "Hi GF.";
+        query["message"] = "This is from your BF.";
+        query["start_at"] = DateTime.Now.AddMinutes(5).ToString("yyyy-MM-ddTHH:mm:ssZ");
+        query["end_at"] = DateTime.Now.AddDays(1).ToString("yyyy-MM-ddTHH:mm:ssZ");
+
+        var queryString = query.ToString();
+        uriBuilder.Query = queryString;
+        longUrl = uriBuilder.ToString();
+
+        var resource = string.Concat(string.Format(CanvasResource.Notifications, accountId), "?", queryString);
+        
+        var request = new RestRequest(
+            resource, DataFormat.Json
+        ) as IRestRequest;
+
+        var response = await _client.ExecutePostAsync(request, ct);
     }
 }

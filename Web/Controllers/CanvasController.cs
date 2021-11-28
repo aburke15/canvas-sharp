@@ -38,7 +38,7 @@ public class CanvasController : ControllerBase
     public async Task<IActionResult> GetNotificationsAsync([FromRoute] long accountId, [FromRoute] bool includePast = false, CancellationToken ct = 
     default)
     {
-        var results = await _client.GetNotificationsAsync(accountId, includePast, ct);
-        return Content(results, MediaTypeNames.Application.Json, Encoding.UTF8);
+        await _client.CreateNotificationAsync(accountId, ct);
+        return Content("Done", MediaTypeNames.Application.Json, Encoding.UTF8);
     }
 }
